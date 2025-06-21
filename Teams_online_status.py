@@ -1,3 +1,20 @@
+"""
+Hi user this script will kepp your teams status online for the time you like, by moving and clicking your mouse dynamically which will trick Teams in thinking you are online. 
+Keep in mind to keep your system running and screen turned on.
+You wount be able to do anything on your system while script is running since it moves and click your mouse to keep your status active.
+
+Your system should have python installed to run this script.
+You would need to install pyautogui in your system. command 'pip install pyautogui'
+
+To run the script, 
+1. go to your terminal/command prompt
+2. change to the directory where you have saved this file.
+3. give command 'python Teams_online_statuss.py'.  If you cahnged the filename give the same to this commmand.
+4. enter the number of minutes you want to stay online.
+
+To stop the script execution in middle, do a 'ctrl+c' or 'ctrl+alt+delete' if former didnt work.
+"""
+
 import time
 import pyautogui
 
