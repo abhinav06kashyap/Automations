@@ -11,7 +11,6 @@ To run the script,
 2. change to the directory where you have saved this file.
 3. give command 'python Teams_online_status.py'. If you changed the filename, give the same to this commmand.
 4. enter the number of minutes you want to stay online.
-
 To stop the script execution in middle, do a 'ctrl+c' or 'ctrl+alt+delete' if former didnt work.
 """
 
@@ -26,4 +25,5 @@ while time.time() - start_time < sec:
     pyautogui.moveTo(1500,150)
     pyautogui.click(1000,150)
     pyautogui.moveTo(1500,150)
-print(f"Done for {user_time} minutes")
+
+print(f"Done for {user_time} minutes.")
