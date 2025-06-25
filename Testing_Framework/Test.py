@@ -27,46 +27,53 @@ Testing_class_name = data['Class_Name'].values
 
 for i in S_No:
     if Param_dict:
-        tup = (S_No[i-1], Fun_name[i-1])
+        tup = (S_No[i-1].item(), Fun_name[i-1])
         for key in Param_dict.keys():
-            tup = tup + (Param_dict[key][i-1],)
-        tup = tup + (Exp_result[i-1],)
-        parameters.append([tup])
+            tup = tup + (Param_dict[key][i-1].item(),)
+        tup = tup + (Exp_result[i-1].item(),)
+        parameters.append(tup)
     else:
-        parameters.append([(S_No[i-1], Fun_name[i-1], Exp_result[i-1])])
+        parameters.append((S_No[i-1].item(), Fun_name[i-1], Exp_result[i-1].item()))
 
-# @pytest.fixture
-# def mockios():
-#     #mocking argument parser for HC script
-#     test_args = [Testing_script_name[0]]
-#     with mock.patch.object(sys, 'argv', test_args):
-#         test_script = importlib.import_module(Testing_script_name[0])
-#         if Testing_class_name:
-#             imported_class = getattr(test_script, Testing_class_name[0])
-#         else:
-#             pass
+@pytest.fixture
+def mock_ios():
+    #mocking argument parser for HC script
+    test_args = [Testing_script_name[0]]
+    with mock.patch.object(sys, 'argv', test_args):
+        test_script = importlib.import_module(Testing_script_name[0])
+        if Testing_class_name:
+            imported_class = getattr(test_script, Testing_class_name[0])
+        else:
+            pass
     
-#     #patching the constructor to do nothing
-#     with patch.object(imported_class, '_init_', return_value=None):
-#         obj = imported_class()
-#         #Manually set required attributes
-#         obj = MagicMock()
-#         return obj
+    #patching the constructor to do nothing
+    with patch.object(imported_class, '_init_', return_value=None):
+        obj = imported_class()
+        #Manually set required attributes
+        obj = MagicMock()
+        return obj
 
+col_count=0
 decorater_parameter_names = ""
 for col in data:
-    if "Test_Script" not in col and "Class_Name" not in col:
-        decorater_parameter_names+=','+col
+    # if "Test_Script" not in col and "Class_Name" not in col:
+    #     col_count+=1
+    #     decorater_parameter_names += col+','
+    if col =="Expected_Result":
+        break
     else:
-        pass
-    
-# print(parameters[-1][])
+        col_count+=1
+        decorater_parameter_names += col+','
+decorater_parameter_names = decorater_parameter_names.removesuffix(',')
+print(decorater_parameter_names)
+#calculate paramaters to pass to test function
+param_list = decorater_parameter_names.split(',')
 
 # # calling all paramaters for testing
-# @pytest.mark.parametrize(getattr(decorater_parameter_names), parameters)
-# def test_policy(sno, function, param, test_output, result):
-#     return_result = getattr(mock_ios, param) (param, filters, test_output)
-#     assert return_result == parameters[-1]
-#     # mock_ios.add_ecm.assert_called_once()
+@pytest.mark.parametrize(decorater_parameter_names, parameters)
+def test_function(*args):
+    return_result = getattr(mock_ios, args[1]) (args[2:-1])
+    assert return_result == parameters[-1]
+    # mock_ios.add_ecm.assert_called_once()
     # called_param, called_result = mock_ios.add_ecm.call_args[0]
          
