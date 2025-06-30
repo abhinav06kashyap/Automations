@@ -73,50 +73,85 @@ def mock_fun():
     else:
         return test_script
 
-decorater_parameter_names = ""
-for col in data:
-    if col =="Test_Script":
-        break
-    elif col == 'S.No':
-        decorater_parameter_names += 'S_No'+','
-    else:
-        decorater_parameter_names += col+','
-decorater_parameter_names = decorater_parameter_names.removesuffix(',')
 # regex=r"Param*"
 # matches = re.findall(regex,decorater_parameter_names)
 # pl = len(matches)
 
 for p in parameters:
     if len(p) == 3:
+        decorater_parameter_names = ""
+        for col in data:
+            if col =="Test_Script":
+                break
+            elif col == 'S.No':
+                decorater_parameter_names += 'S_No'+','
+            elif 'Param' in col:
+                pass
+            else:
+                decorater_parameter_names += col+','
+        decorater_parameter_names = decorater_parameter_names.removesuffix(',')
         # # calling all paramaters for testing
         @pytest.mark.parametrize(decorater_parameter_names, [p])
-        def test_function(mock_fun, S_No, Function_Name, Expected_Result):
+        def test_function1(mock_fun, S_No, Function_Name, Expected_Result):
             return_result = getattr(mock_fun, Function_Name)()
             assert return_result == Expected_Result
             # mock_ios.add_ecm.assert_called_once()
             # called_param, called_result = mock_ios.add_ecm.call_args[0]
     elif len(p) == 4:
+        decorater_parameter_names = ""
+        for col in data:
+            if col =="Test_Script":
+                break
+            elif col == 'S.No':
+                decorater_parameter_names += 'S_No'+','
+            elif 'Param2' in col:
+                pass
+            else:
+                decorater_parameter_names += col+','
+        decorater_parameter_names = decorater_parameter_names.removesuffix(',')
         # # calling all paramaters for testing
         @pytest.mark.parametrize(decorater_parameter_names, [p])
-        def test_function(mock_fun, S_No, Function_Name, Param1, Expected_Result):
+        def test_function2(mock_fun, S_No, Function_Name, Param1, Expected_Result):
             return_result = getattr(mock_fun, Function_Name)(Param1)
             assert return_result == Expected_Result
             # mock_ios.add_ecm.assert_called_once()
             # called_param, called_result = mock_ios.add_ecm.call_args[0]
     elif len(p) == 5:
         print(p)
+        decorater_parameter_names = ""
+        for col in data:
+            if col =="Test_Script":
+                break
+            elif col == 'S.No':
+                decorater_parameter_names += 'S_No'+','
+            elif 'Param3' in col:
+                pass
+            else:
+                decorater_parameter_names += col+','
+        decorater_parameter_names = decorater_parameter_names.removesuffix(',')
         # # calling all paramaters for testing
         @pytest.mark.parametrize(decorater_parameter_names, [p])
-        def test_function(mock_fun, S_No, Function_Name, Param1, Param2, Expected_Result):
+        def test_function3(mock_fun, S_No, Function_Name, Param1, Param2, Expected_Result):
             return_result = getattr(mock_fun, Function_Name)(Param1, Param2)
             assert return_result == Expected_Result
             # mock_ios.add_ecm.assert_called_once()
             # called_param, called_result = mock_ios.add_ecm.call_args[0]
     elif len(p) == 6:
         print(p)
+        decorater_parameter_names = ""
+        for col in data:
+            if col =="Test_Script":
+                break
+            elif col == 'S.No':
+                decorater_parameter_names += 'S_No'+','
+            elif 'Param4' in col:
+                pass
+            else:
+                decorater_parameter_names += col+','
+        decorater_parameter_names = decorater_parameter_names.removesuffix(',')
         # # calling all paramaters for testing
         @pytest.mark.parametrize(decorater_parameter_names, [p])
-        def test_function(mock_fun, S_No, Function_Name, Param1, Param2, Param3, Expected_Result):
+        def test_function4(mock_fun, S_No, Function_Name, Param1, Param2, Param3, Expected_Result):
             return_result = getattr(mock_fun, Function_Name)(Param1, Param2, Param3)
             assert return_result == Expected_Result
             # mock_ios.add_ecm.assert_called_once()
